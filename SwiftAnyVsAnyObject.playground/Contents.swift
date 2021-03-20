@@ -112,3 +112,62 @@ I don't know this value!
 Note:
 If possible, avoid both Any and AnyObject in your code – it’s better to be more specific if you can be.
 */
+
+
+//=======================================================================================================
+
+                    //Any Vs AnyObject Vs NSObject -  3rd Example
+
+//=======================================================================================================
+//Source: https://baotrandotco.wordpress.com/2018/04/09/any-vs-anyobject-vs-nsobject/
+//iOS: Any vs. AnyObject vs. NSObject
+//Recently, I had minor hiccup at work not knowing the difference between Any vs. AnyObject vs. NSObjects. Are they not the same? Well, not quite – after digging into each of them, not only did I find the difference, I also found their uses!
+//****************************************************************************************************
+                       // Any
+//‘Any’ includes all objects; including function types.
+//Is not a concrete data type. ‘Any’ is an alias for any data type.
+//As you can see above, the ‘anyCollection’ will allow any type of objects, whether or not they share the same class or type.
+
+//****************************************************************************************************
+let anyCollection: Any = ["String", 1, ("tuple", "tuple")]
+print(anyCollection)
+/*
+ Output:
+ ["String", 1, ("tuple", "tuple")]
+ */
+//****************************************************************************************************
+                       // AnyObject
+//‘AnyObject’ are objects derived from classes.
+//Is an alias for any instance derived from any class type.
+//Is Objective-C’s ‘id’.
+//With AnyObjects, they must be instances of a class, so objects such as a strings or value will throw up an error.
+//You can put [Any] in lieu of [AnyObject] to be more broad.
+
+//****************************************************************************************************
+class FooClass {
+}
+
+class BarClass {
+}
+let fooInstance = FooClass()
+let barInstance = BarClass()
+
+let anyObjectCollection: [AnyObject] = [fooInstance, barInstance]
+print(anyObjectCollection)
+/*
+ Output:
+ [__lldb_expr_5.FooClass, __lldb_expr_5.BarClass]
+ */
+//****************************************************************************************************
+                       // NSObject
+//Foundation Objects, NSString, NSNumber, NSData, NSDate, JSONSerialization, DateFormatter, etc.
+//These are Objective-C types, Swift has data types that can be bridged by importing the Foundation framework (part of the UIKit Framework).
+//For the nsobjectCollection below, anything that has a root class or NSObject is valid.
+//****************************************************************************************************
+let nsobjectCollection: [NSObject] = [1 as NSNumber, "String" as NSString]
+print(nsobjectCollection)
+/*
+ output :
+ [1, String]
+
+ */
